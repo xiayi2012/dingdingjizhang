@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>叮叮记账 · 高级配色提案</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+      color: #20252a;
+      background: #e9ebed;
+    }
+    body {
+      margin: 0;
+      min-width: 1800px;
+      background:
+        radial-gradient(circle at 14% 6%, rgba(255,255,255,.95), transparent 27%),
+        linear-gradient(135deg, #eff0f1 0%, #e5e7e9 100%);
+    }
+    .board {
+      width: 1800px;
+      margin: 0 auto;
+      padding: 58px 62px 70px;
+    }
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      padding: 0 4px 36px;
+      border-bottom: 1px solid rgba(24, 30, 36, .16);
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #747a80;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      font-family: "Songti SC", "STSong", "SimSun", serif;
+      font-size: 46px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .subtitle {
+      margin: 12px 0 0;
+      color: #666d73;
+      font-size: 17px;
+    }
+    .edition {
+      color: #73797e;
+      font: 600 13px/1.5 "Consolas", monospace;
+      letter-spacing: .08em;
+      text-align: right;
+    }
+    .group { margin-top: 42px; }
+    .group-head {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 18px;
+      align-items: center;
+      margin: 0 4px 18px;
+    }
+    .group-index {
+      color: #8b9095;
+      font: 700 12px/1 "Consolas", monospace;
+      letter-spacing: .14em;
+    }
+    .group-title {
+      margin: 0;
+      font-family: "Songti SC", "STSong", "SimSun", serif;
+      font-size: 25px;
+      letter-spacing: .08em;
+    }
+    .group-rule { height: 1px; background: rgba(24, 30, 36, .13); }
+    .group-note { color: #7d8388; font-size: 13px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .palette-card {
+      --primary: #333;
+      --accent: #aaa;
+      --background: #f7f7f7;
+      --surface: #fff;
+      --text: #222;
+      --income: #497761;
+      --alert: #b75f5f;
+      position: relative;
+      overflow: hidden;
+      min-height: 512px;
+      padding: 25px 25px 22px 39px;
+      border: 1px solid rgba(20, 25, 30, .12);
+      border-radius: 18px;
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 12px 34px rgba(22, 27, 32, .07);
+    }
+    .spectrum-rail {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 14px;
+      background: linear-gradient(
+        to bottom,
+        var(--primary) 0 25%,
+        var(--accent) 25% 42%,
+        var(--income) 42% 61%,
+        var(--alert) 61% 78%,
+        var(--background) 78% 100%
+      );
+    }
+    .card-head {
+      min-height: 67px;
+      padding-right: 76px;
+    }
+    .palette-name {
+      margin: 0;
+      color: var(--text);
+      font-family: "Songti SC", "STSong", "SimSun", serif;
+      font-size: 23px;
+      letter-spacing: .04em;
+    }
+    .palette-description {
+      margin: 7px 0 0;
+      color: color-mix(in srgb, var(--text) 68%, white);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .recommended {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      padding: 6px 10px;
+      border: 1px solid color-mix(in srgb, var(--accent) 64%, transparent);
+      border-radius: 999px;
+      color: var(--primary);
+      background: color-mix(in srgb, var(--accent) 14%, white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .mini-app {
+      position: relative;
+      min-height: 229px;
+      margin: 16px 0 18px;
+      padding: 16px;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--primary) 14%, transparent);
+      border-radius: 15px;
+      color: var(--text);
+      background: var(--background);
+    }
+    .mini-brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .mini-brand::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--primary);
+      border-top-color: transparent;
+      border-radius: 50%;
+      transform: rotate(-20deg);
+    }
+    .balance-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "label change" "amount change";
+      align-items: center;
+      padding: 13px 14px;
+      border-radius: 12px;
+      color: var(--surface);
+      background: var(--primary);
+    }
+    .balance-card span { grid-area: label; font-size: 11px; opacity: .76; }
+    .balance-card strong {
+      grid-area: amount;
+      margin-top: 2px;
+      font: 700 25px/1.1 "Georgia", "Times New Roman", serif;
+      letter-spacing: .015em;
+    }
+    .balance-card small {
+      grid-area: change;
+      padding: 5px 7px;
+      border-radius: 999px;
+      color: var(--text);
+      background: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .budget-row, .states {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 11px;
+      font-size: 10px;
+    }
+    .budget-row { font-weight: 700; }
+    .progress {
+      height: 6px;
+      margin-top: 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--primary) 13%, var(--surface));
+    }
+    .progress i {
+      display: block;
+      width: 52%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+    .states span {
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+    .states span:first-child {
+      color: var(--income);
+      background: color-mix(in srgb, var(--income) 11%, var(--surface));
+    }
+    .states span:last-child {
+      color: var(--alert);
+      background: color-mix(in srgb, var(--alert) 11%, var(--surface));
+    }
+    .mini-app button {
+      width: 100%;
+      margin-top: 11px;
+      padding: 9px 12px;
+      border: 0;
+      border-radius: 9px;
+      color: var(--surface);
+      background: var(--primary);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px 8px;
+    }
+    .swatch {
+      min-width: 0;
+      padding: 7px 8px 8px;
+      border: 1px solid rgba(25, 30, 35, .1);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .swatch-chip {
+      height: 18px;
+      margin-bottom: 5px;
+      border: 1px solid rgba(20, 25, 30, .08);
+      border-radius: 5px;
+      background: var(--chip);
+    }
+    .swatch-label {
+      display: block;
+      color: #6f757a;
+      font-size: 10px;
+    }
+    .swatch-value {
+      display: block;
+      margin-top: 2px;
+      color: #282d31;
+      font: 700 12px/1.25 "Consolas", monospace;
+      letter-spacing: .01em;
+    }
+    .board-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 34px;
+      padding: 20px 4px 0;
+      border-top: 1px solid rgba(24, 30, 36, .14);
+      color: #747a80;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">DingDing · Color Material Study</p>
+        <h1>叮叮记账 · 高级配色提案</h1>
+        <p class="subtitle">九套品牌色谱，以同一组财务组件验证真实界面表现</p>
+      </div>
+      <div class="edition">COLOR STUDY / 01<br>2026.07</div>
+    </header>
+    <div id="groups"></div>
+    <footer class="board-footer">
+      <span>用途：微信记账小程序视觉方向选择</span>
+      <span>主色 · 辅助 · 背景 · 卡片 · 正文 · 收入 · 提醒</span>
+    </footer>
+  </main>
+  <script>
+    const palettes = [
+      {
+        group: "轻奢柔和", name: "香槟燕麦",
+        description: "温暖、克制，带轻微酒店与精品生活感", recommended: false,
+        colors: { primary: "#8A6A4A", accent: "#C8A46A", background: "#F7F3EC", surface: "#FFFCF7", text: "#2E2924", income: "#4E7C67", alert: "#B85C54" }
+      },
+      {
+        group: "轻奢柔和", name: "灰粉松露",
+        description: "柔和但不甜腻，成熟而精致", recommended: false,
+        colors: { primary: "#9B6F76", accent: "#C6A6A9", background: "#F5F1F0", surface: "#FFFCFC", text: "#352B2D", income: "#657B6A", alert: "#B56A5A" }
+      },
+      {
+        group: "轻奢柔和", name: "鼠尾草羊绒",
+        description: "自然、安静、耐看，具有生活方式品牌气质", recommended: false,
+        colors: { primary: "#6F806C", accent: "#B7A88D", background: "#F3F2EC", surface: "#FCFBF7", text: "#2B312B", income: "#547460", alert: "#B56C61" }
+      },
+      {
+        group: "现代冷静", name: "深潭青灰",
+        description: "理性、可信赖，不会过于商务", recommended: true,
+        colors: { primary: "#2F6F73", accent: "#7FA7A4", background: "#EFF4F3", surface: "#FFFFFF", text: "#183438", income: "#3F7D63", alert: "#C65F5F" }
+      },
+      {
+        group: "现代冷静", name: "普鲁士雾蓝",
+        description: "稳重、专业，拥有克制的数据感", recommended: false,
+        colors: { primary: "#36597A", accent: "#90A4B8", background: "#F1F4F7", surface: "#FBFCFD", text: "#172A3A", income: "#49775F", alert: "#C77A45" }
+      },
+      {
+        group: "现代冷静", name: "鸢尾灰紫",
+        description: "冷静中带一点个性，年轻但不幼稚", recommended: false,
+        colors: { primary: "#5E5B8A", accent: "#A3A0BB", background: "#F3F2F7", surface: "#FCFBFE", text: "#28263A", income: "#567565", alert: "#BC646E" }
+      },
+      {
+        group: "深色点缀", name: "曜石香槟金",
+        description: "浅米灰搭配曜石黑与香槟金，轻奢感最强", recommended: true,
+        colors: { primary: "#22262B", accent: "#B69A61", background: "#F4F2ED", surface: "#FEFDF9", text: "#202327", income: "#567565", alert: "#A9574F" }
+      },
+      {
+        group: "深色点缀", name: "深海铜棕",
+        description: "深海蓝绿配低饱和铜色，稳重且有亲和力", recommended: true,
+        colors: { primary: "#173B43", accent: "#B77A55", background: "#EFF3F1", surface: "#FBFCFA", text: "#183035", income: "#3F7765", alert: "#B45F50" }
+      },
+      {
+        group: "深色点缀", name: "黑梅铂银",
+        description: "深梅灰搭配铂银，拥有精品金融产品气质", recommended: false,
+        colors: { primary: "#332B38", accent: "#A7A0AA", background: "#F4F2F5", surface: "#FDFCFE", text: "#2B2630", income: "#4E7564", alert: "#B25F6A" }
+      }
+    ];
+
+    const labels = {
+      primary: "主色", accent: "辅助", background: "背景", surface: "卡片",
+      text: "正文", income: "收入", alert: "提醒"
+    };
+    const groupNotes = {
+      "轻奢柔和": "温暖低饱和 · 生活方式感",
+      "现代冷静": "理性灰调 · 专业耐看",
+      "深色点缀": "浅色页面 · 深色主卡与金属细节"
+    };
+
+    function miniApp() {
+      return `
+        <div class="mini-app">
+          <div class="mini-brand">叮叮记账</div>
+          <div class="balance-card">
+            <span>今日支出</span><strong>¥128.50</strong><small>下降 24.6%</small>
+          </div>
+          <div class="budget-row"><span>本月预算 ¥6,000</span><span>已用 52%</span></div>
+          <div class="progress"><i></i></div>
+          <div class="states"><span>收入 +¥800</span><span>提醒 3天后还款</span></div>
+          <button>＋ 记一笔</button>
+        </div>`;
+    }
+
+    function paletteCard(palette) {
+      const style = Object.entries(palette.colors)
+        .map(([key, value]) => `--${key}:${value}`)
+        .join(";");
+      const swatches = Object.entries(palette.colors)
+        .map(([key, value]) => `
+          <div class="swatch">
+            <div class="swatch-chip" style="--chip:${value}"></div>
+            <span class="swatch-label">${labels[key]}</span>
+            <strong class="swatch-value">${value}</strong>
+          </div>`).join("");
+      return `
+        <article class="palette-card" style="${style}" data-palette="${palette.name}">
+          <div class="spectrum-rail"></div>
+          ${palette.recommended ? '<span class="recommended">推荐</span>' : ''}
+          <header class="card-head">
+            <h3 class="palette-name">${palette.name}</h3>
+            <p class="palette-description">${palette.description}</p>
+          </header>
+          ${miniApp()}
+          <div class="swatches">${swatches}</div>
+        </article>`;
+    }
+
+    const groups = ["轻奢柔和", "现代冷静", "深色点缀"];
+    document.querySelector("#groups").innerHTML = groups.map((group, index) => `
+      <section class="group" data-group="${group}">
+        <header class="group-head">
+          <span class="group-index">0${index + 1}</span>
+          <h2 class="group-title">${group}</h2>
+          <span class="group-note">${groupNotes[group]}</span>
+        </header>
+        <div class="cards">${palettes.filter(p => p.group === group).map(paletteCard).join("")}</div>
+      </section>`).join("");
+  </script>
+</body>
+</html>
