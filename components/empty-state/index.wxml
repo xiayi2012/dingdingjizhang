@@ -1,0 +1,1 @@
+<view class="empty"><bell-mark/><text class="title">{{title}}</text><text class="desc">{{description}}</text><button wx:if="{{action}}" class="action" bindtap="act">{{action}}</button></view>

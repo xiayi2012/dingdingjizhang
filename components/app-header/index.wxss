@@ -1,0 +1,1 @@
+.header{height:176rpx;padding-top:60rpx;box-sizing:border-box;display:flex;align-items:center;gap:18rpx}.title{font-size:42rpx;font-weight:800;letter-spacing:-1rpx}.subtitle{font-size:24rpx;color:#7D8883;margin-top:4rpx}.back{margin:0;padding:0;width:58rpx;height:58rpx;line-height:52rpx;border-radius:50%;background:#FFFDF8;color:#2C3833;font-size:44rpx}

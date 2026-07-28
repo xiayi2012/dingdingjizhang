@@ -1,0 +1,1 @@
+.empty{padding:70rpx 30rpx;text-align:center;display:flex;align-items:center;flex-direction:column}.title{font-size:32rpx;font-weight:700;margin-top:24rpx}.desc{font-size:24rpx;color:#7D8883;margin:12rpx 0 24rpx}.action{background:#F1D37A;color:#2C3833;border-radius:99rpx;font-size:26rpx}

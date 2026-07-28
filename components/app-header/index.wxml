@@ -1,0 +1,5 @@
+<view class="header">
+  <button wx:if="{{back}}" class="back" bindtap="goBack">‹</button>
+  <view><view class="title">{{title}}</view><view wx:if="{{subtitle}}" class="subtitle">{{subtitle}}</view></view>
+  <slot/>
+</view>
