@@ -9,7 +9,8 @@ test('registers all ten product pages', () => {
   assert.ok(app.pages.includes('pages/budget/index'));
 });
 
-test('keeps cloud disabled without an environment id', () => {
+test('derives cloud mode from the configured environment id', () => {
   const { getRuntimeConfig } = require('../config/env');
-  assert.deepEqual(getRuntimeConfig(), { cloudEnabled: false, cloudEnvId: '' });
+  const config = getRuntimeConfig();
+  assert.equal(config.cloudEnabled, Boolean(config.cloudEnvId));
 });

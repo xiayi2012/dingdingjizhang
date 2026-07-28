@@ -29,6 +29,5 @@
       { "pagePath": "pages/profile/index", "text": "我的" }
     ]
   },
-  "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "sitemapLocation": "sitemap.json"
 }

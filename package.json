@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "node --test",
-    "check": "node --test && node scripts/validate-project.js"
+    "test": "node --test --test-concurrency=1",
+    "check": "node --test --test-concurrency=1 && node scripts/validate-project.js"
   }
 }
