@@ -36,6 +36,31 @@ function createRepository(storage) {
     if (!current) throw new Error('记录不存在');
     return save(entity, { ...current, deleted: true });
   }
-  return { list, get, save, remove, getSnapshot: () => clone(snapshot) };
+  function getPending() {
+    const changes = [];
+    Object.entries(snapshot).forEach(([entity, items]) => {
+      if (Array.isArray(items)) items.filter((item) => item.syncStatus === 'pending')
+        .forEach((item) => changes.push({ entity, value: clone(item) }));
+    });
+    return changes;
+  }
+  function applySyncResult(result = {}) {
+    (result.changes || []).forEach(({ entity, value }) => {
+      const items = snapshot[entity] || (snapshot[entity] = []);
+      const index = items.findIndex((item) => item.id === value.id);
+      if (index >= 0) items[index] = { ...value, syncStatus: 'synced' };
+      else items.push({ ...value, syncStatus: 'synced' });
+    });
+    const uploadedIds = new Set(result.acceptedIds || []);
+    Object.values(snapshot).forEach((items) => {
+      if (Array.isArray(items)) items.forEach((item) => {
+        if (uploadedIds.has(item.id)) item.syncStatus = 'synced';
+      });
+    });
+    snapshot.syncCursor = result.cursor || snapshot.syncCursor || '';
+    storage.set(clone(snapshot));
+  }
+  return { list, get, save, remove, getPending, applySyncResult,
+    getSyncCursor: () => snapshot.syncCursor || '', getSnapshot: () => clone(snapshot) };
 }
 module.exports = { createRepository };
