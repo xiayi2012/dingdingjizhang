@@ -1,1 +1,1 @@
-{"usingComponents":{"app-header":"/components/app-header/index","amount-card":"/components/amount-card/index","progress-bar":"/components/progress-bar/index","empty-state":"/components/empty-state/index"}}
+{"usingComponents":{"app-header":"/components/app-header/index","amount-card":"/components/amount-card/index","progress-bar":"/components/progress-bar/index","empty-state":"/components/empty-state/index","status-tag":"/components/status-tag/index"}}
