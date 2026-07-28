@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/records/index",
+    "pages/entry/index",
+    "pages/statistics/index",
+    "pages/profile/index",
+    "pages/loans/index",
+    "pages/loan-detail/index",
+    "pages/debts/index",
+    "pages/debt-detail/index",
+    "pages/budget/index"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#FFFAEC",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#7D8883",
+    "selectedColor": "#2C3833",
+    "backgroundColor": "#FFFDF8",
+    "list": [
+      { "pagePath": "pages/home/index", "text": "首页" },
+      { "pagePath": "pages/records/index", "text": "明细" },
+      { "pagePath": "pages/entry/index", "text": "记账" },
+      { "pagePath": "pages/statistics/index", "text": "统计" },
+      { "pagePath": "pages/profile/index", "text": "我的" }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}
