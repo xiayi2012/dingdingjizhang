@@ -1,0 +1,7 @@
+<view class="page"><app-header title="记一笔" subtitle="最快一步，轻松记清"/>
+<view class="modes"><text class="{{mode==='manual'?'active':''}}" data-mode="manual" bindtap="setMode">手动</text><text class="{{mode==='chat'?'active':''}}" data-mode="chat" bindtap="setMode">聊天</text><text class="{{mode==='voice'?'active':''}}" data-mode="voice" bindtap="setMode">语音</text></view>
+<view wx:if="{{mode!=='manual'}}" class="coming card"><bell-mark/><text>{{mode==='chat'?'聊天':'语音'}}识别暂未开放</text><text class="muted">你仍可切回手动记账，数据会安全保存在本机。</text></view>
+<view wx:else><view class="types"><text class="{{type==='expense'?'active':''}}" data-type="expense" bindtap="setType">支出</text><text class="{{type==='income'?'active':''}}" data-type="income" bindtap="setType">收入</text></view>
+<view class="amount card"><text>¥</text><input type="digit" value="{{amount}}" data-field="amount" bindinput="input"/></view>
+<view class="form card"><label>分类<input value="{{categoryName}}" data-field="categoryName" bindinput="input"/></label><label>账户<input value="{{accountName}}" data-field="accountName" bindinput="input"/></label><label>备注<input value="{{note}}" data-field="note" bindinput="input"/></label><label>日期<input value="{{date}}" data-field="date" bindinput="input"/></label></view>
+<button class="button-primary save" bindtap="save">保存记录</button></view></view>

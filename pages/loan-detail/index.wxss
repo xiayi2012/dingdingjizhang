@@ -1,0 +1,1 @@
+.facts{display:grid;grid-template-columns:repeat(3,1fr);padding:28rpx;margin:22rpx 0}.facts view{text-align:center}.facts text,.facts b{display:block}.facts text,.muted{font-size:22rpx;color:#7D8883}.facts b{margin-top:10rpx}.history{padding:28rpx;margin-bottom:26rpx}.title{font-size:30rpx;font-weight:750}.history view{padding:20rpx 0;border-bottom:1rpx solid #EEEADF}

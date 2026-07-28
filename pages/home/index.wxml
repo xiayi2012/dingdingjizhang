@@ -1,0 +1,6 @@
+<view class="page"><app-header title="叮叮记账" subtitle="今天也在认真生活"><bell-mark/></app-header>
+<amount-card label="今日支出" value="¥ {{vm.todayExpense}}" hint="已记 {{vm.todayCount}} 笔 · 较昨日下降 24.6%"/>
+<view class="quick"><view bindtap="goEntry">✎<text>手动记账</text></view><view>⌁<text>聊天记账</text></view><view>◉<text>语音记账</text></view></view>
+<view class="section card"><view class="row"><text class="section-title">本月预算</text><text>52%</text></view><progress-bar value="{{vm.budgetPercent}}"/><view class="muted">已用 ¥3,120 / ¥6,000</view></view>
+<view class="section"><view class="row"><text class="section-title">最近记录</text><text class="link">查看全部</text></view><view wx:for="{{vm.recent}}" wx:key="id" class="record card"><view><text class="record-title">{{item.note}}</text><text class="muted">{{item.categoryName}} · {{item.accountName}}</text></view><text class="{{item.type==='income'?'amount-income':'amount-expense'}}">{{item.type==='income'?'+':'-'}}¥{{item.amountCents/100}}</text></view></view>
+<view class="reminders"><view class="reminder card" bindtap="goLoans"><status-tag text="贷款" tone="cream"/><text>房贷 3 天后还款</text><text class="muted">本期 ¥3,200</text></view><view class="reminder card" bindtap="goDebts"><status-tag text="待收" tone="mint"/><text>待收欠款 ¥850</text><text class="muted">约定日期 8 月 10 日</text></view></view></view>
