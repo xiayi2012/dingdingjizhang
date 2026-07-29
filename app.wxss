@@ -1,0 +1,19 @@
+page {
+  --cream: #F1D37A;
+  --mint: #7FAE9A;
+  --canvas: #FFFAEC;
+  --card: #FFFDF8;
+  --ink: #2C3833;
+  --income: #4D806B;
+  --alert: #D9786C;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+  font-size: 28rpx;
+}
+.page { min-height: 100vh; box-sizing: border-box; padding: 0 28rpx 180rpx; }
+.card { background: var(--card); border: 1rpx solid rgba(44,56,51,.06); border-radius: 28rpx; box-shadow: 0 12rpx 36rpx rgba(83,76,48,.06); }
+.button-primary { background: var(--cream); color: var(--ink); border-radius: 999rpx; font-weight: 700; }
+.amount-income { color: var(--income); }
+.amount-expense, .text-alert { color: var(--alert); }
+button::after { border: 0; }

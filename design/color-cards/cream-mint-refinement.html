@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>叮叮记账 · 奶油薄荷微调</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: #26312d; background: #ecefea; }
+    body { margin: 0; min-width: 1800px; background: linear-gradient(145deg, #f7f5ed, #e9efea); }
+    .board { width: 1800px; margin: auto; padding: 58px 54px 68px; }
+    header.hero {
+      display: flex; justify-content: space-between; align-items: end;
+      padding: 0 8px 30px; border-bottom: 1px solid rgba(35,45,40,.18);
+    }
+    .eyebrow { margin: 0 0 10px; color: #728078; font-size: 13px; font-weight: 800; letter-spacing: .2em; }
+    h1 { margin: 0; font-size: 43px; font-weight: 900; letter-spacing: -.03em; }
+    .subtitle { margin: 11px 0 0; color: #6f7974; font-size: 16px; }
+    .ratio-note { color: #56665e; font-size: 12px; font-weight: 800; text-align: right; line-height: 1.8; }
+    .variants { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; margin-top: 30px; }
+    .variant {
+      --primary:#f3ce63; --accent:#58a990; --background:#fff9e9; --surface:#fff;
+      --text:#273731; --income:#32846b; --alert:#e46a5d;
+      position: relative; min-height: 950px; padding: 20px; overflow: hidden;
+      border: 1px solid rgba(32,42,37,.13); border-radius: 23px;
+      background: rgba(255,255,255,.87); box-shadow: 0 16px 38px rgba(30,40,35,.08);
+    }
+    .variant::before {
+      content: ""; position: absolute; inset: 0 0 auto; height: 9px;
+      background: linear-gradient(90deg, var(--primary) 0 55%, var(--accent) 55% 78%, var(--alert) 78%);
+    }
+    .variant-head { min-height: 109px; padding: 9px 2px 0; }
+    .index { color: var(--accent); font: 800 11px Consolas, monospace; letter-spacing: .12em; }
+    h2 { margin: 7px 0 0; color: var(--text); font-size: 23px; }
+    .desc { min-height: 38px; margin: 7px 0 0; color: #717b76; font-size: 12px; line-height: 1.55; }
+    .recommended {
+      position: absolute; top: 24px; right: 19px; padding: 6px 10px;
+      border: 1px solid var(--accent); border-radius: 999px;
+      color: var(--accent); background: var(--surface); font-size: 11px; font-weight: 900;
+    }
+    .phone {
+      position: relative; min-height: 595px; padding: 15px; border: 1px solid color-mix(in srgb, var(--accent) 17%, transparent);
+      border-radius: 22px; color: var(--text); background: var(--background);
+    }
+    .status { display: flex; justify-content: space-between; color: color-mix(in srgb, var(--text) 65%, white); font-size: 9px; }
+    .brand { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 12px; font-size: 12px; font-weight: 900; }
+    .brand-mark { display: inline-flex; align-items: center; gap: 6px; }
+    .brand-mark::before { content: "◔"; color: var(--accent); font-size: 19px; }
+    .today-card {
+      padding: 14px; border: 1px solid color-mix(in srgb, var(--primary) 75%, #a57c00);
+      border-radius: 15px; background: var(--primary); color: var(--text);
+    }
+    .today-label { font-size: 10px; opacity: .72; }
+    .amount { display: block; margin: 3px 0 7px; font-size: 29px; line-height: 1; }
+    .today-meta { display: flex; justify-content: space-between; font-size: 9px; font-weight: 800; }
+    .quick { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }
+    .quick div {
+      padding: 10px 4px; border: 1px solid color-mix(in srgb, var(--accent) 19%, transparent);
+      border-radius: 10px; background: var(--surface); text-align: center; font-size: 9px; font-weight: 800;
+    }
+    .quick b { display: block; margin-bottom: 5px; color: var(--accent); font-size: 19px; }
+    .budget { margin-top: 12px; padding: 12px; border-radius: 12px; background: var(--surface); }
+    .budget-row { display: flex; justify-content: space-between; font-size: 10px; font-weight: 800; }
+    .progress { height: 6px; margin-top: 8px; border-radius: 99px; background: color-mix(in srgb, var(--accent) 12%, var(--surface)); overflow: hidden; }
+    .progress i { display:block; width:52%; height:100%; border-radius:inherit; background: var(--accent); }
+    .states { display: flex; justify-content: space-between; margin-top: 10px; font-size: 9px; font-weight: 800; }
+    .states span { padding: 6px 7px; border-radius: 7px; }
+    .states span:first-child { color: var(--income); background: color-mix(in srgb, var(--income) 10%, var(--surface)); }
+    .states span:last-child { color: var(--alert); background: color-mix(in srgb, var(--alert) 10%, var(--surface)); }
+    .reminder {
+      display: grid; grid-template-columns: 50px 1fr; gap: 10px; align-items:center;
+      margin-top: 11px; padding: 10px; border: 1px dashed color-mix(in srgb, var(--accent) 42%, transparent);
+      border-radius: 12px; background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+    }
+    .bell {
+      position:relative; width:43px; height:38px; border:2px solid var(--text);
+      border-radius:24px 24px 10px 10px; background:var(--primary);
+    }
+    .bell::before { content:""; position:absolute; left:16px; top:-8px; width:8px; height:8px; border:2px solid var(--text); border-radius:50%; background:var(--accent); }
+    .bell::after { content:""; position:absolute; left:15px; bottom:-8px; width:11px; height:8px; border:2px solid var(--text); border-radius:0 0 8px 8px; background:var(--accent); }
+    .face { position:absolute; inset:16px 0 auto; text-align:center; font-size:11px; font-weight:900; }
+    .reminder strong { display:block; font-size:10px; }
+    .reminder p { margin:4px 0 0; color:#6d7772; font-size:9px; line-height:1.5; }
+    .cta {
+      width:100%; margin-top:12px; padding:11px; border:0; border-radius:10px;
+      color:var(--text); background:var(--primary); font:900 11px/1 inherit;
+      box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--primary) 72%, #a57c00);
+    }
+    .nav { display:flex; justify-content:space-around; margin-top:13px; color:#77817c; font-size:8px; }
+    .nav b { color:var(--accent); }
+    .ratio {
+      display:grid; grid-template-columns:15fr 10fr 75fr; height:7px; margin:17px 2px 8px;
+      overflow:hidden; border-radius:99px;
+    }
+    .ratio i:nth-child(1){background:var(--primary)} .ratio i:nth-child(2){background:var(--accent)} .ratio i:nth-child(3){background:#e8ebe8}
+    .ratio-copy { color:#747d78; font-size:9px; text-align:center; }
+    .swatches { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:14px; }
+    .swatch { padding:6px; border:1px solid rgba(35,45,40,.1); border-radius:8px; background:#fff; }
+    .chip { height:19px; border-radius:5px; background:var(--chip); border:1px solid rgba(35,45,40,.08); }
+    .label { display:block; margin-top:5px; color:#717a76; font-size:8px; }
+    .value { display:block; margin-top:2px; color:#29322e; font:800 10px Consolas,monospace; }
+    footer { display:flex; justify-content:space-between; margin-top:30px; padding:18px 6px 0; border-top:1px solid rgba(35,45,40,.15); color:#747d78; font-size:11px; }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <header class="hero">
+      <div><p class="eyebrow">DINGDING · CREAM MINT TUNING</p><h1>奶油薄荷 · 色彩协调微调</h1><p class="subtitle">同一套首页组件，只比较黄色、薄荷和状态色之间的关系</p></div>
+      <div class="ratio-note">主黄 10–15% · 薄荷 8–12%<br>背景与卡片 70%+</div>
+    </header>
+    <section class="variants" id="variants"></section>
+    <footer><span>叮叮记账 · 微信小程序视觉方向</span><span>推荐：品牌平衡</span></footer>
+  </main>
+  <script>
+    const variants = [
+      { name:"原版奶油薄荷", description:"当前基准：亲切轻松，但黄绿冷暖差异略明显", recommended:false,
+        colors:{primary:"#F3CE63",accent:"#58A990",background:"#FFF9E9",surface:"#FFFFFF",text:"#273731",income:"#32846B",alert:"#E46A5D"}},
+      { name:"柔和奶油", description:"降低黄绿饱和度，温暖、安静、治愈", recommended:false,
+        colors:{primary:"#F1D37A",accent:"#7FAE9A",background:"#FFFAEC",surface:"#FFFDF8",text:"#2C3833",income:"#4D806B",alert:"#D9786C"}},
+      { name:"清爽薄荷", description:"黄色更浅，让绿色承担导航与数据强调", recommended:false,
+        colors:{primary:"#F6D96B",accent:"#45A987",background:"#F7FBF4",surface:"#FFFFFF",text:"#203B33",income:"#278267",alert:"#E06D5F"}},
+      { name:"品牌平衡", description:"保留黄绿记忆点，通过比例降低色彩竞争", recommended:true,
+        colors:{primary:"#F2CC4D",accent:"#4E9B7F",background:"#FFF9E8",surface:"#FFFFFF",text:"#263631",income:"#3B7F69",alert:"#D96F62"}}
+    ];
+    const labels={primary:"主色",accent:"薄荷",background:"背景",surface:"卡片",text:"正文",income:"收入",alert:"提醒"};
+    function phone(){
+      return `<div class="phone">
+        <div class="status"><span>9:41</span><span>••• ◉</span></div>
+        <div class="brand"><span class="brand-mark">叮叮记账</span><span>今日 3 笔</span></div>
+        <div class="today-card"><span class="today-label">今日支出</span><strong class="amount">¥128.50</strong><div class="today-meta"><span>较昨日下降 24.6%</span><span>7月27日</span></div></div>
+        <div class="quick"><div><b>＋</b>手动记账</div><div><b>⌁</b>聊天记账</div><div><b>◉</b>语音记账</div></div>
+        <div class="budget"><div class="budget-row"><span>本月预算 ¥6,000</span><span>已用 52%</span></div><div class="progress"><i></i></div><div class="states"><span>收入 +¥800</span><span>3天后还款</span></div></div>
+        <div class="reminder"><div class="bell"><span class="face">•‿•</span></div><div><strong>叮叮提醒</strong><p>房贷还有 3 天，记得预留余额</p></div></div>
+        <button class="cta">＋ 记一笔</button>
+        <div class="nav"><span>首页</span><span>明细</span><b>记账</b><span>统计</span><span>我的</span></div>
+      </div>`;
+    }
+    function card(v,i){
+      const style=Object.entries(v.colors).map(([k,val])=>`--${k}:${val}`).join(";");
+      const swatches=Object.entries(v.colors).map(([k,val])=>`<div class="swatch"><div class="chip" style="--chip:${val}"></div><span class="label">${labels[k]}</span><strong class="value">${val}</strong></div>`).join("");
+      return `<article class="variant" style="${style}">${v.recommended?'<span class="recommended">推荐</span>':''}<header class="variant-head"><span class="index">0${i+1}</span><h2>${v.name}</h2><p class="desc">${v.description}</p></header>${phone()}<div class="ratio"><i></i><i></i><i></i></div><div class="ratio-copy">主黄 10–15% · 薄荷 8–12% · 中性色 70%+</div><div class="swatches">${swatches}</div></article>`;
+    }
+    document.querySelector("#variants").innerHTML=variants.map(card).join("");
+  </script>
+</body>
+</html>

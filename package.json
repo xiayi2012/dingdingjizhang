@@ -1,0 +1,9 @@
+{
+  "name": "dingding-bookkeeping",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test --test-concurrency=1",
+    "check": "node --test --test-concurrency=1 && node scripts/validate-project.js"
+  }
+}

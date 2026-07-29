@@ -1,0 +1,1 @@
+.loan{padding:28rpx;margin-top:20rpx}.row,.meta{display:flex;justify-content:space-between}.name{font-size:32rpx;font-weight:750}.amount{display:block;font-size:42rpx;font-weight:800;margin:22rpx 0}.meta{font-size:22rpx;color:#7D8883;margin-top:14rpx}

@@ -1,0 +1,1 @@
+const {createFinanceService}=require('../../services/finance-service');Page({data:{loans:[],total:0},onShow(){const loans=createFinanceService(getApp().globalData.repository).listLoans();this.setData({loans,total:loans.reduce((s,x)=>s+x.remainingCents,0)});},open(e){wx.navigateTo({url:`/pages/loan-detail/index?id=${e.currentTarget.dataset.id}`});}});

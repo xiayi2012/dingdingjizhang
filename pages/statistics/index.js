@@ -1,0 +1,3 @@
+const { createInsightsService } = require('../../services/insights-service');
+const { formatCents } = require('../../domain/money');
+Page({data:{period:'month',vm:null},onShow(){this.load();if(this.getTabBar)this.getTabBar().setData({selected:3});},select(e){this.setData({period:e.currentTarget.dataset.period});this.load();},load(){const vm=createInsightsService(getApp().globalData.repository).getStatistics(this.data.period,new Date('2026-07-28T12:00:00+08:00'));this.setData({vm:{...vm,income:formatCents(vm.incomeCents),expense:formatCents(vm.expenseCents),balance:formatCents(vm.balanceCents)}});}});

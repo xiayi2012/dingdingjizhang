@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>叮叮记账 · 年轻黄色系配色</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+      color: #202329;
+      background: #f2f0e9;
+    }
+    body {
+      margin: 0;
+      min-width: 1800px;
+      background:
+        radial-gradient(circle at 82% 3%, rgba(255, 219, 74, .24), transparent 22%),
+        linear-gradient(145deg, #f8f6ef, #ebece8);
+    }
+    .board { width: 1800px; margin: auto; padding: 58px 68px 72px; }
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 56px;
+      align-items: end;
+      padding-bottom: 32px;
+      border-bottom: 2px solid #262a2f;
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #6f7478;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .2em;
+    }
+    h1 { margin: 0; font-size: 46px; font-weight: 900; letter-spacing: -.02em; }
+    .subtitle { margin: 12px 0 0; color: #666b6f; font-size: 17px; }
+    .hero-note {
+      padding: 17px 20px;
+      border: 1px solid #d7b52e;
+      border-radius: 14px;
+      background: #ffda4d;
+      color: #282a2d;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.65;
+      transform: rotate(-1deg);
+      box-shadow: 5px 6px 0 #252a31;
+    }
+    .group { margin-top: 40px; }
+    .group-head {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin: 0 4px 16px;
+    }
+    .group-dot {
+      width: 13px;
+      height: 13px;
+      border: 3px solid #24282d;
+      border-radius: 50%;
+      background: #ffd84d;
+    }
+    .group-title { margin: 0; font-size: 25px; font-weight: 900; }
+    .group-note { margin-left: auto; color: #73787d; font-size: 13px; }
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .palette-card {
+      --primary: #ffd84d;
+      --accent: #3157d5;
+      --background: #fffbea;
+      --surface: #fff;
+      --text: #242526;
+      --income: #2c8a68;
+      --alert: #e45757;
+      position: relative;
+      overflow: hidden;
+      min-height: 595px;
+      padding: 28px;
+      border: 1px solid rgba(35, 39, 44, .13);
+      border-radius: 22px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 14px 38px rgba(30, 34, 38, .08);
+    }
+    .ticket-edge {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 18px;
+      background:
+        radial-gradient(circle at 0 16px, transparent 6px, var(--primary) 7px) 0 0/18px 32px;
+    }
+    .card-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      min-height: 72px;
+      padding-left: 10px;
+    }
+    .palette-name { margin: 0; color: var(--text); font-size: 25px; font-weight: 900; }
+    .palette-description { margin: 7px 0 0; color: #74797d; font-size: 13px; }
+    .recommended {
+      align-self: start;
+      padding: 7px 12px;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      color: var(--accent);
+      background: var(--surface);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .preview-wrap {
+      display: grid;
+      grid-template-columns: 1fr 150px;
+      gap: 14px;
+      margin: 14px 0 20px 10px;
+    }
+    .mini-app {
+      min-height: 305px;
+      padding: 18px;
+      border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+      border-radius: 18px;
+      color: var(--text);
+      background: var(--background);
+    }
+    .mini-brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 13px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .mini-brand span:last-child { color: var(--accent); }
+    .balance-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "label tag" "amount tag";
+      align-items: center;
+      padding: 15px;
+      border: 2px solid color-mix(in srgb, var(--primary) 72%, #a17c00);
+      border-radius: 14px;
+      color: var(--text);
+      background: var(--primary);
+    }
+    .balance-card span { grid-area: label; font-size: 11px; opacity: .75; }
+    .balance-card strong { grid-area: amount; margin-top: 2px; font-size: 28px; line-height: 1; }
+    .balance-card small {
+      grid-area: tag;
+      padding: 6px 8px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--accent);
+      font-size: 10px;
+      font-weight: 900;
+    }
+    .budget-row, .states { display: flex; justify-content: space-between; margin-top: 13px; font-size: 11px; font-weight: 800; }
+    .progress { height: 7px; margin-top: 8px; overflow: hidden; border-radius: 999px; background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+    .progress i { display: block; width: 52%; height: 100%; border-radius: inherit; background: var(--accent); }
+    .states span { padding: 7px 9px; border-radius: 8px; }
+    .states span:first-child { color: var(--income); background: color-mix(in srgb, var(--income) 10%, var(--surface)); }
+    .states span:last-child { color: var(--alert); background: color-mix(in srgb, var(--alert) 10%, var(--surface)); }
+    .mini-app button {
+      width: 100%;
+      margin-top: 14px;
+      padding: 11px;
+      border: 0;
+      border-radius: 10px;
+      color: var(--text);
+      background: var(--primary);
+      font: 900 12px/1 inherit;
+      box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--primary) 72%, #a17c00);
+    }
+    .mascot-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 10px;
+      border: 1px dashed color-mix(in srgb, var(--accent) 42%, transparent);
+      border-radius: 18px;
+      color: var(--text);
+      background: color-mix(in srgb, var(--primary) 13%, var(--surface));
+    }
+    .bell {
+      position: relative;
+      width: 64px;
+      height: 57px;
+      margin-bottom: 15px;
+      border: 3px solid var(--text);
+      border-radius: 34px 34px 15px 15px;
+      background: var(--primary);
+      transform: rotate(-5deg);
+    }
+    .bell::before {
+      content: "";
+      position: absolute;
+      left: 24px;
+      top: -11px;
+      width: 11px;
+      height: 11px;
+      border: 3px solid var(--text);
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .bell::after {
+      content: "";
+      position: absolute;
+      left: 22px;
+      bottom: -12px;
+      width: 17px;
+      height: 12px;
+      border: 3px solid var(--text);
+      border-radius: 0 0 12px 12px;
+      background: var(--accent);
+    }
+    .face { position: absolute; inset: 24px 0 auto; text-align: center; font-size: 18px; font-weight: 900; letter-spacing: 5px; }
+    .mascot-title { font-size: 12px; font-weight: 900; }
+    .mascot-copy { margin-top: 5px; color: #72777b; font-size: 10px; text-align: center; line-height: 1.5; }
+    .swatches { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; margin-left: 10px; }
+    .swatch { min-width: 0; padding: 7px; border: 1px solid rgba(30,34,38,.1); border-radius: 9px; background: #fff; }
+    .chip { height: 23px; margin-bottom: 6px; border: 1px solid rgba(20,24,28,.08); border-radius: 6px; background: var(--chip); }
+    .label { display: block; color: #73787c; font-size: 9px; }
+    .value { display: block; margin-top: 2px; color: #262a2f; font: 800 11px/1.2 Consolas, monospace; }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 34px;
+      padding-top: 19px;
+      border-top: 1px solid rgba(35,39,44,.15);
+      color: #74797d;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">DINGDING · YOUNG COLOR STUDY</p>
+        <h1>叮叮记账 · 年轻黄色系</h1>
+        <p class="subtitle">六套黄色品牌色谱，让快捷记账更有活力与记忆点</p>
+      </div>
+      <div class="hero-note">黄色负责“现在就记一笔”<br>撞色负责信息层级，小铃铛负责品牌记忆。</div>
+    </header>
+    <div id="groups"></div>
+    <footer class="footer"><span>叮叮记账 · 微信小程序视觉方向</span><span>黄色按钮统一使用深色文字</span></footer>
+  </main>
+  <script>
+    const palettes = [
+      { group: "柠檬黄", name: "柠檬宝蓝", description: "清爽、有活力，具有年轻运动品牌气质", recommended: true,
+        colors: { primary: "#F4C430", accent: "#3157D5", background: "#FFFBEA", surface: "#FFFFFF", text: "#242526", income: "#2C8A68", alert: "#E45757" } },
+      { group: "柠檬黄", name: "闪电黄海军蓝", description: "醒目、有数字产品感，适合突出“记一笔”", recommended: false,
+        colors: { primary: "#FFD84D", accent: "#243B6B", background: "#FFF9E3", surface: "#FFFEF8", text: "#22283A", income: "#3F8C72", alert: "#F06B52" } },
+      { group: "奶油黄", name: "奶油薄荷", description: "亲切、轻松，年轻但不刺激，适合长期使用", recommended: true,
+        colors: { primary: "#F3CE63", accent: "#58A990", background: "#FFF9E9", surface: "#FFFFFF", text: "#273731", income: "#32846B", alert: "#E46A5D" } },
+      { group: "奶油黄", name: "杏仁晴空", description: "暖黄搭配浅蓝，明亮、干净，具有轻生活感", recommended: false,
+        colors: { primary: "#F6C85F", accent: "#6EA6D9", background: "#FFF8EA", surface: "#FFFFFF", text: "#293441", income: "#3B8D72", alert: "#E7695C" } },
+      { group: "芥末黄", name: "芥末森林", description: "复古、有辨识度，同时保留财务产品的稳重感", recommended: true,
+        colors: { primary: "#D3A72F", accent: "#244F46", background: "#F8F3E4", surface: "#FFFDF7", text: "#26342F", income: "#34745E", alert: "#C85D50" } },
+      { group: "芥末黄", name: "蜂蜜葡萄", description: "蜂蜜黄搭配灰紫，个性更强，具有潮流文具感", recommended: false,
+        colors: { primary: "#D9A52C", accent: "#66518C", background: "#FBF4DF", surface: "#FFFCF5", text: "#312B3C", income: "#4C806A", alert: "#C45B63" } }
+    ];
+    const labels = { primary: "主色", accent: "撞色", background: "背景", surface: "卡片", text: "正文", income: "收入", alert: "提醒" };
+    const notes = { "柠檬黄": "明亮撞色 · 运动与数字感", "奶油黄": "柔和清新 · 轻松耐看", "芥末黄": "复古个性 · 稳重有辨识度" };
+
+    function miniApp() {
+      return `<div class="mini-app">
+        <div class="mini-brand"><span>叮叮记账</span><span>今日 3 笔</span></div>
+        <div class="balance-card"><span>今日支出</span><strong>¥128.50</strong><small>下降 24.6%</small></div>
+        <div class="budget-row"><span>本月预算 ¥6,000</span><span>已用 52%</span></div>
+        <div class="progress"><i></i></div>
+        <div class="states"><span>收入 +¥800</span><span>3天后还款</span></div>
+        <button>＋ 记一笔</button>
+      </div>`;
+    }
+    function mascot() {
+      return `<div class="mascot-panel">
+        <div class="bell"><span class="face">•‿•</span></div>
+        <div class="mascot-title">叮叮提醒</div>
+        <div class="mascot-copy">房贷还有 3 天<br>记得预留余额</div>
+      </div>`;
+    }
+    function card(p) {
+      const style = Object.entries(p.colors).map(([k,v]) => `--${k}:${v}`).join(";");
+      const swatches = Object.entries(p.colors).map(([k,v]) => `<div class="swatch">
+        <div class="chip" style="--chip:${v}"></div><span class="label">${labels[k]}</span><strong class="value">${v}</strong>
+      </div>`).join("");
+      return `<article class="palette-card" style="${style}">
+        <div class="ticket-edge"></div>
+        <header class="card-head"><div><h3 class="palette-name">${p.name}</h3><p class="palette-description">${p.description}</p></div>${p.recommended ? '<span class="recommended">推荐</span>' : ''}</header>
+        <div class="preview-wrap">${miniApp()}${mascot()}</div>
+        <div class="swatches">${swatches}</div>
+      </article>`;
+    }
+    const groups = ["柠檬黄", "奶油黄", "芥末黄"];
+    document.querySelector("#groups").innerHTML = groups.map(group => `<section class="group">
+      <header class="group-head"><span class="group-dot"></span><h2 class="group-title">${group}</h2><span class="group-note">${notes[group]}</span></header>
+      <div class="cards">${palettes.filter(p => p.group === group).map(card).join("")}</div>
+    </section>`).join("");
+  </script>
+</body>
+</html>

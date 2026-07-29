@@ -1,0 +1,4 @@
+{
+  "desc": "叮叮记账页面索引",
+  "rules": [{ "action": "allow", "page": "*" }]
+}
